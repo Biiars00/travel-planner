@@ -10,13 +10,13 @@ class ParticipantsRepository:
         cursor.execute(
             '''
                 INSERT INTO participants
-                    (id, trip_id, emails_to_invite, name)
+                    (id, trip_id, emails_to_invite_id, name)
                 VALUES
                     (?, ?, ?, ?)
             ''', (
                 participants_infos["id"],
                 participants_infos["trip_id"],
-                participants_infos["iemails_to_invited"],
+                participants_infos["emails_to_invite_id"],
                 participants_infos["name"],
             )
         )
@@ -35,7 +35,7 @@ class ParticipantsRepository:
         participants = cursor.fetchall()
         return participants
     
-    def update_participants_status(self, participants_id: str) -> None:
+    def update_participant_status(self, participants_id: str) -> None:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''

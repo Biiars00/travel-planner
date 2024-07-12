@@ -1,0 +1,27 @@
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+
+def send_email(to_addrs, body):
+    from_addr = "d3axvpqeptezodxc@ethereal.email"
+    login = "d3axvpqeptezodxc@ethereal.email"
+    password = "AeXPYtRxXxavXQ6pjE"
+
+    msg = MIMEMultipart()
+    msg["from"] = "guia_de_viagens_fk@email.com"
+    msg["to"] = ', '.join(to_addrs)
+
+    msg["Subject"] = "Confirmação de viagem!"
+    msg.attach(MIMEText(body, 'plain'))
+
+    server = smtplib.SMTP("smtp.ethereal.email", 587)
+    server.starttls()
+    server.login(login, password)
+    text = msg.as_string()
+
+    for email in to_addrs:
+        server.sendmail(from_addr, email, text)
+        
+    server.quit()
+
